@@ -6,7 +6,12 @@
   export let name;
 
   const client = new ApolloClient({
-    uri: "https://todos-graphql.herokuapp.com/graphql"
+    uri: "http://localhost:5050/graphql",
+
+    onError: ({ networkError, graphQLErrors }) => {
+      console.log("graphQLErrors", graphQLErrors);
+      console.log("networkError", networkError);
+    }
   });
 
   setClient(client);

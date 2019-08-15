@@ -4,20 +4,24 @@
 
   const GETTODO = gql`
     {
-      getTodos {
-        id
-        text
-        done
+      allTodos {
+        nodes {
+          id
+          title
+          done
+        }
       }
     }
   `;
 
   const ADDTODO = gql`
     mutation($todoEdit: String!) {
-      addTodo(text: $todoEdit) {
-        id
-        text
-        done
+      createTodo(input: { todo: { title: $todoEdit, done: false } }) {
+        todo {
+          id
+          title
+          done
+        }
       }
     }
   `;
@@ -33,7 +37,7 @@
         todoEdit
       }
     })
-      .then(() => {
+      .then(data => {
         todoEdit = "";
         todoOp.refetch();
       })
@@ -61,11 +65,10 @@
     <p>.. loading</p>
   {:then data}
 
-    <ul>
-      {#each data.data['getTodos'] as todo, i}
-        <li class:done={todo.done}>{todo.text}</li>
-      {/each}
-    </ul>
+    {#each data.data['allTodos']['nodes'] as todo, i}
+      <p class:done={todo.done}>{todo.title}</p>
+    {/each}
+
   {:catch e}
     {e}
   {/await}
