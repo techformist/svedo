@@ -1,5 +1,7 @@
 Simple to do app created for demonstration purposes. Uses Svelte and GraphQL.
 
+See https://techformist.com/create-a-simple-to-do-app-using-svelte-and-graphql/ for instructions/ details.
+
 ---
 
 # svelte app
